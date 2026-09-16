@@ -20,12 +20,14 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
 
   return (
     <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      {/* Status Filter Buttons */}
+      {/* Status Filter Tabs */}
       <div className="flex flex-wrap items-center gap-2">
         <button
           onClick={() => onFilterChange({ status: 'ALL' })}
-          className={`btn text-xs font-bold ${
-            filter.status === 'ALL' ? 'btn-primary' : 'btn-secondary'
+          className={`btn text-xs font-black tracking-wider ${
+            filter.status === 'ALL'
+              ? 'btn-primary'
+              : 'btn-secondary text-[#94a3b8] hover:text-white'
           }`}
         >
           ALL ({totalCount})
@@ -33,8 +35,10 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
 
         <button
           onClick={() => onFilterChange({ status: 'ACTIVE' })}
-          className={`btn text-xs font-bold ${
-            filter.status === 'ACTIVE' ? 'btn-primary' : 'btn-secondary'
+          className={`btn text-xs font-black tracking-wider ${
+            filter.status === 'ACTIVE'
+              ? 'btn-primary'
+              : 'btn-secondary text-[#94a3b8] hover:text-white'
           }`}
         >
           ACTIVE ({activeCount})
@@ -42,8 +46,10 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
 
         <button
           onClick={() => onFilterChange({ status: 'EXPIRING_SOON' })}
-          className={`btn text-xs font-bold ${
-            filter.status === 'EXPIRING_SOON' ? 'btn-primary' : 'btn-secondary'
+          className={`btn text-xs font-black tracking-wider ${
+            filter.status === 'EXPIRING_SOON'
+              ? 'btn-primary'
+              : 'btn-secondary text-[#94a3b8] hover:text-white'
           }`}
         >
           EXPIRING ({expiringCount})
@@ -51,8 +57,10 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
 
         <button
           onClick={() => onFilterChange({ status: 'EXPIRED' })}
-          className={`btn text-xs font-bold ${
-            filter.status === 'EXPIRED' ? 'btn-primary' : 'btn-secondary'
+          className={`btn text-xs font-black tracking-wider ${
+            filter.status === 'EXPIRED'
+              ? 'btn-primary'
+              : 'btn-secondary text-[#94a3b8] hover:text-white'
           }`}
         >
           EXPIRED ({expiredCount})
@@ -60,20 +68,21 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
       </div>
 
       {/* Sort Selector */}
-      <div className="flex items-center gap-2 text-xs font-bold text-[#686863]">
-        <ArrowUpDown size={14} />
-        <span>Sort:</span>
+      <div className="flex items-center gap-2 text-xs font-bold text-[#94a3b8]">
+        <ArrowUpDown size={14} className="text-[#00ff87]" />
+        <span>SORT:</span>
         <select
           value={filter.sortBy}
           onChange={(e) => onFilterChange({ sortBy: e.target.value as CodeFilterState['sortBy'] })}
-          className="rounded-lg border border-[#deded6] bg-white px-2.5 py-1.5 font-semibold text-[#151515] outline-none focus:border-[#151515]"
+          className="rounded-xl border border-[#233148] bg-[#141c2e] px-3 py-1.5 font-bold text-white outline-none focus:border-[#00ff87] transition-colors cursor-pointer"
           aria-label="Sort codes"
         >
-          <option value="newest">Newest Released</option>
-          <option value="expiring">Expiring Soonest</option>
-          <option value="reward">Reward Name</option>
+          <option value="newest" className="bg-[#141c2e] text-white">Newest Released</option>
+          <option value="expiring" className="bg-[#141c2e] text-white">Expiring Soonest</option>
+          <option value="reward" className="bg-[#141c2e] text-white">Reward Name</option>
         </select>
       </div>
     </div>
   );
 };
+

@@ -8,7 +8,6 @@ import {
   Edit2,
   Trash2,
   RotateCcw,
-  Database,
   LogOut,
 } from 'lucide-react';
 import type { CodeItem, CodeFormData, CodeStatus } from '../types/code';
@@ -19,7 +18,6 @@ import {
   toggleFeaturedCode,
   softDeleteCode,
   restoreCode,
-  seedFirestoreDatabase,
   calculateAdminStats,
 } from '../services/codeService';
 import { AdminStats } from '../components/admin/AdminStats';
@@ -133,25 +131,18 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
     showNotification(`Code ${item.code} restored to active inventory.`);
   };
 
-  const handleSeedDatabase = async () => {
-    if (window.confirm('Seed development demo codes into database?')) {
-      const count = await seedFirestoreDatabase();
-      showNotification(`Seeded ${count} sample codes into database.`);
-    }
-  };
-
   return (
     <div className="container-custom py-8">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#deded6] pb-6 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1e2a3e] pb-6 mb-8">
         <div>
-          <div className="pill bg-[#e7f1ed] text-[#1d5f52] mb-2">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/10 px-3.5 py-1 text-xs font-black uppercase tracking-wider text-[#00ff87] mb-2">
             <span>ADMINISTRATIVE CONSOLE</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#151515]">
+          <h1 className="text-2xl sm:text-3xl font-black text-white">
             Code Inventory & Verification Manager
           </h1>
-          <p className="text-xs text-[#686863]">
+          <p className="text-xs text-[#94a3b8]">
             Manage FC Mobile redeem codes, record live verification status, and monitor drop activity.
           </p>
         </div>
@@ -159,19 +150,19 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={onBackToHome}
-            className="btn btn-secondary text-xs"
+            className="btn btn-secondary text-xs font-bold"
           >
             View Public Site
           </button>
           <button
             onClick={handleOpenAddModal}
-            className="btn btn-primary text-xs"
+            className="btn btn-primary text-xs font-black"
           >
             <Plus size={16} /> Add Code
           </button>
           <button
             onClick={onSignOut}
-            className="btn btn-secondary text-xs text-[#dc2626] hover:bg-[#fee2e2]"
+            className="btn btn-secondary text-xs text-[#ef4444] hover:bg-[#ef4444]/15 hover:border-[#ef4444]/40"
             title="Sign out of administrator console"
           >
             <LogOut size={14} /> Sign Out
@@ -181,9 +172,9 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
 
       {/* Floating Notification */}
       {feedbackMsg && (
-        <div className="mb-6 rounded-xl bg-[#e7f1ed] border border-[#b8dcce] p-3 text-xs font-bold text-[#1d5f52] flex items-center justify-between">
+        <div className="mb-6 rounded-xl bg-[#00ff87]/15 border border-[#00ff87]/40 p-3 text-xs font-bold text-[#00ff87] flex items-center justify-between shadow-lg">
           <span>{feedbackMsg}</span>
-          <button onClick={() => setFeedbackMsg(null)} className="text-[#1d5f52]">✕</button>
+          <button onClick={() => setFeedbackMsg(null)} className="text-[#00ff87] hover:opacity-80">✕</button>
         </div>
       )}
 
@@ -191,37 +182,37 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
       <AdminStats stats={stats} />
 
       {/* Table Control Bar */}
-      <div className="card p-4 bg-white mb-6">
+      <div className="card p-4 bg-[#121928] border-[#22314a] mb-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           {/* Search input */}
-          <div className="flex items-center gap-2 rounded-xl border border-[#deded6] px-3 py-1.5 flex-1 max-w-md bg-[#fbfbf9]">
-            <Search size={16} className="text-[#686863]" />
+          <div className="flex items-center gap-2 rounded-xl border border-[#23334c] px-3 py-1.5 flex-1 max-w-md bg-[#141d2f]">
+            <Search size={16} className="text-[#64748b]" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search code string, reward, source..."
-              className="w-full bg-transparent text-xs font-medium outline-none"
+              className="w-full bg-transparent text-xs font-medium text-white outline-none placeholder-[#64748b]"
             />
           </div>
 
           {/* Status Filter Dropdown & Trash Toggle */}
           <div className="flex flex-wrap items-center gap-3 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-[#686863]">
-              <Filter size={14} />
+            <div className="flex items-center gap-1.5 font-bold text-[#94a3b8]">
+              <Filter size={14} className="text-[#00ff87]" />
               <span>Status:</span>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="rounded-lg border border-[#deded6] bg-white px-2.5 py-1 text-xs font-semibold text-[#151515] outline-none"
+                className="rounded-lg border border-[#23334c] bg-[#141d2f] px-2.5 py-1 text-xs font-bold text-white outline-none focus:border-[#00ff87]"
               >
-                <option value="ALL">ALL STATUSES</option>
-                <option value="ACTIVE">ACTIVE</option>
-                <option value="EXPIRING_SOON">EXPIRING_SOON</option>
-                <option value="EXPIRED">EXPIRED</option>
-                <option value="LIMIT_REACHED">LIMIT_REACHED</option>
-                <option value="DISABLED">DISABLED</option>
-                <option value="PENDING_VERIFICATION">PENDING_VERIFICATION</option>
+                <option value="ALL" className="bg-[#141d2f] text-white">ALL STATUSES</option>
+                <option value="ACTIVE" className="bg-[#141d2f] text-white">ACTIVE</option>
+                <option value="EXPIRING_SOON" className="bg-[#141d2f] text-white">EXPIRING_SOON</option>
+                <option value="EXPIRED" className="bg-[#141d2f] text-white">EXPIRED</option>
+                <option value="LIMIT_REACHED" className="bg-[#141d2f] text-white">LIMIT_REACHED</option>
+                <option value="DISABLED" className="bg-[#141d2f] text-white">DISABLED</option>
+                <option value="PENDING_VERIFICATION" className="bg-[#141d2f] text-white">PENDING_VERIFICATION</option>
               </select>
             </div>
 
@@ -229,30 +220,21 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
               onClick={() => setShowTrash(!showTrash)}
               className={`btn text-xs py-1.5 px-3 min-h-[34px] ${
                 showTrash
-                  ? 'bg-[#fee2e2] text-[#dc2626] border-[#fca5a5]'
+                  ? 'bg-[#ef4444]/20 text-[#ef4444] border border-[#ef4444]/40'
                   : 'btn-secondary'
               }`}
             >
               {showTrash ? 'Showing Soft-Deleted Codes' : 'Show Soft-Deleted (History)'}
-            </button>
-
-            <button
-              onClick={handleSeedDatabase}
-              className="btn btn-secondary text-xs py-1.5 px-3 min-h-[34px]"
-              title="Seed development demo codes"
-            >
-              <Database size={14} />
-              Seed Demo Data
             </button>
           </div>
         </div>
       </div>
 
       {/* Code Inventory Data Table */}
-      <div className="card overflow-hidden bg-white shadow-xs">
+      <div className="card overflow-hidden bg-[#101726] border-[#22314a] shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-[#deded6] bg-[#f5f5f0] text-[11px] font-black uppercase tracking-wider text-[#686863]">
+            <thead className="border-b border-[#1e2a3e] bg-[#141d30] text-[11px] font-black uppercase tracking-wider text-[#94a3b8]">
               <tr>
                 <th className="px-5 py-3.5">Code</th>
                 <th className="px-5 py-3.5">Reward Details</th>
@@ -263,27 +245,27 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#deded6]">
+            <tbody className="divide-y divide-[#1e2a3e]">
               {displayCodes.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-5 py-10 text-center text-sm text-[#686863]">
-                    No codes match the selected criteria.
+                  <td colSpan={7} className="px-5 py-12 text-center text-sm text-[#94a3b8]">
+                    No codes match the selected criteria. Click &quot;Add Code&quot; to insert real redeem codes.
                   </td>
                 </tr>
               ) : (
                 displayCodes.map((item) => (
                   <tr
                     key={item.id}
-                    className={`transition-colors hover:bg-[#fbfbf9] ${
-                      item.deleted ? 'bg-[#fef2f2]/30 opacity-75' : ''
+                    className={`transition-colors hover:bg-[#141c2e] ${
+                      item.deleted ? 'bg-[#ef4444]/10 opacity-75' : ''
                     }`}
                   >
                     {/* Code */}
-                    <td className="px-5 py-4 font-mono font-black text-sm text-[#151515]">
+                    <td className="px-5 py-4 font-mono font-black text-sm text-white">
                       <div className="flex items-center gap-1.5">
                         <span>{item.code}</span>
                         {item.deleted && (
-                          <span className="rounded bg-[#fee2e2] px-1.5 py-0.5 text-[9px] font-bold text-[#dc2626]">
+                          <span className="rounded bg-[#ef4444]/20 border border-[#ef4444]/40 px-1.5 py-0.5 text-[9px] font-bold text-[#ef4444]">
                             DELETED
                           </span>
                         )}
@@ -292,9 +274,9 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
 
                     {/* Reward Details */}
                     <td className="px-5 py-4 max-w-xs">
-                      <div className="font-bold text-[#151515] truncate">{item.reward}</div>
+                      <div className="font-bold text-[#e2e8f0] truncate">{item.reward}</div>
                       {item.source && (
-                        <div className="text-[10px] text-[#686863]">
+                        <div className="text-[10px] text-[#64748b]">
                           Source: {item.source}
                         </div>
                       )}
@@ -309,22 +291,22 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                     <td className="px-5 py-4">
                       {item.verificationDate ? (
                         <div>
-                          <span className="font-semibold text-[#1d5f52]">
+                          <span className="font-bold text-[#00ff87]">
                             {formatRelativeTime(item.verificationDate)}
                           </span>
                           {item.verificationNotes && (
-                            <p className="text-[10px] text-[#686863] truncate max-w-[140px]">
+                            <p className="text-[10px] text-[#94a3b8] truncate max-w-[140px]">
                               {item.verificationNotes}
                             </p>
                           )}
                         </div>
                       ) : (
-                        <span className="text-[#a8a8a3]">Unverified</span>
+                        <span className="text-[#64748b]">Unverified</span>
                       )}
                     </td>
 
                     {/* Expiration Date */}
-                    <td className="px-5 py-4 font-semibold text-[#686863]">
+                    <td className="px-5 py-4 font-semibold text-[#94a3b8]">
                       {item.expirationDate
                         ? formatDisplayDate(item.expirationDate)
                         : 'No Expiration'}
@@ -337,8 +319,8 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                         disabled={item.deleted}
                         className={`rounded-lg p-1.5 transition-colors ${
                           item.featured
-                            ? 'bg-amber-100 text-amber-600'
-                            : 'text-[#deded6] hover:text-[#a8a8a3]'
+                            ? 'bg-[#fbbf24]/20 text-[#fbbf24]'
+                            : 'text-[#475569] hover:text-[#94a3b8]'
                         }`}
                         title={item.featured ? 'Unfeature code' : 'Feature code'}
                       >
@@ -352,7 +334,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                         {item.deleted ? (
                           <button
                             onClick={() => handleRestore(item)}
-                            className="btn btn-secondary text-[11px] py-1 px-2.5 min-h-[30px] text-[#1d5f52]"
+                            className="btn btn-secondary text-[11px] py-1 px-2.5 min-h-[30px] text-[#00ff87]"
                             title="Restore soft-deleted code"
                           >
                             <RotateCcw size={13} /> Restore
@@ -361,7 +343,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                           <>
                             <button
                               onClick={() => handleOpenVerifyModal(item)}
-                              className="btn btn-secondary text-[11px] py-1 px-2 min-h-[30px] text-[#1d5f52] hover:bg-[#e7f1ed]"
+                              className="btn btn-secondary text-[11px] py-1 px-2 min-h-[30px] text-[#00ff87] hover:border-[#00ff87]/50"
                               title="Verify code"
                             >
                               <CheckCircle size={13} /> Verify
@@ -369,7 +351,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
 
                             <button
                               onClick={() => handleOpenEditModal(item)}
-                              className="btn btn-secondary text-[11px] py-1 px-2 min-h-[30px]"
+                              className="btn btn-secondary text-[11px] py-1 px-2 min-h-[30px] text-white"
                               title="Edit code details"
                             >
                               <Edit2 size={13} />
@@ -377,7 +359,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
 
                             <button
                               onClick={() => handleSoftDelete(item)}
-                              className="btn btn-secondary text-[11px] py-1 px-2 min-h-[30px] text-[#dc2626] hover:bg-[#fee2e2]"
+                              className="btn btn-secondary text-[11px] py-1 px-2 min-h-[30px] text-[#ef4444] hover:bg-[#ef4444]/20"
                               title="Soft delete code"
                             >
                               <Trash2 size={13} />
@@ -412,3 +394,4 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
     </div>
   );
 };
+

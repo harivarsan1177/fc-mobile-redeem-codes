@@ -103,22 +103,22 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-      <div className="card w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white p-6 sm:p-8 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-[#deded6] pb-4">
-          <h2 className="text-xl font-black text-[#151515]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+      <div className="card w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#0d1422] border border-[#22314a] p-6 sm:p-8 shadow-2xl text-white">
+        <div className="flex items-center justify-between border-b border-[#1e2a3e] pb-4">
+          <h2 className="text-xl font-black text-white">
             {isEditing ? `Edit Code: ${initialData?.code}` : 'Add New Redeem Code'}
           </h2>
           <button
             onClick={onClose}
-            className="rounded-full p-1.5 text-[#686863] hover:bg-[#f1f1eb] hover:text-[#151515]"
+            className="rounded-full p-1.5 text-[#94a3b8] hover:bg-[#182338] hover:text-white transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
         {errorMsg && (
-          <div className="mt-4 flex items-center gap-2 rounded-lg bg-[#fee2e2] p-3 text-xs font-semibold text-[#dc2626]">
+          <div className="mt-4 flex items-center gap-2 rounded-lg bg-[#ef4444]/15 border border-[#ef4444]/40 p-3 text-xs font-semibold text-[#ef4444]">
             <AlertCircle size={16} />
             {errorMsg}
           </div>
@@ -127,7 +127,7 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
         <form onSubmit={handleSubmit} className="mt-6 space-y-4 text-sm">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
                 Code String *
               </label>
               <input
@@ -136,31 +136,31 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
                 value={formData.code}
                 onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                 placeholder="e.g. FCMOBILE2026"
-                className="w-full rounded-xl border border-[#deded6] p-2.5 mono font-black uppercase text-[#151515] outline-none focus:border-[#151515]"
+                className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 mono font-black uppercase text-white outline-none focus:border-[#00ff87]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
                 Status *
               </label>
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as CodeStatus })}
-                className="w-full rounded-xl border border-[#deded6] p-2.5 font-bold text-[#151515] outline-none focus:border-[#151515]"
+                className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 font-bold text-white outline-none focus:border-[#00ff87]"
               >
-                <option value="ACTIVE">ACTIVE</option>
-                <option value="EXPIRING_SOON">EXPIRING_SOON</option>
-                <option value="EXPIRED">EXPIRED</option>
-                <option value="LIMIT_REACHED">LIMIT_REACHED</option>
-                <option value="DISABLED">DISABLED</option>
-                <option value="PENDING_VERIFICATION">PENDING_VERIFICATION</option>
+                <option value="ACTIVE" className="bg-[#141d2f]">ACTIVE (Active & Verified)</option>
+                <option value="EXPIRING_SOON" className="bg-[#141d2f]">EXPIRING_SOON (Expiring Soon)</option>
+                <option value="EXPIRED" className="bg-[#141d2f]">EXPIRED (Expired)</option>
+                <option value="LIMIT_REACHED" className="bg-[#141d2f]">LIMIT_REACHED</option>
+                <option value="DISABLED" className="bg-[#141d2f]">DISABLED</option>
+                <option value="PENDING_VERIFICATION" className="bg-[#141d2f]">PENDING_VERIFICATION</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
               Reward Description *
             </label>
             <input
@@ -169,39 +169,39 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
               value={formData.reward}
               onChange={(e) => setFormData({ ...formData, reward: e.target.value })}
               placeholder="e.g. 1,000 Coins + Elite Player Pack"
-              className="w-full rounded-xl border border-[#deded6] p-2.5 font-medium text-[#151515] outline-none focus:border-[#151515]"
+              className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 font-medium text-white outline-none focus:border-[#00ff87]"
             />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
                 Release Date
               </label>
               <input
                 type="date"
                 value={formData.releaseDate}
                 onChange={(e) => setFormData({ ...formData, releaseDate: e.target.value })}
-                className="w-full rounded-xl border border-[#deded6] p-2.5 text-[#151515] outline-none focus:border-[#151515]"
+                className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-white outline-none focus:border-[#00ff87]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
                 Expiration Date (Optional)
               </label>
               <input
                 type="date"
                 value={formData.expirationDate || ''}
                 onChange={(e) => setFormData({ ...formData, expirationDate: e.target.value })}
-                className="w-full rounded-xl border border-[#deded6] p-2.5 text-[#151515] outline-none focus:border-[#151515]"
+                className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-white outline-none focus:border-[#00ff87]"
               />
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
                 Source Name
               </label>
               <input
@@ -209,12 +209,12 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
                 value={formData.source || ''}
                 onChange={(e) => setFormData({ ...formData, source: e.target.value })}
                 placeholder="e.g. EA Official Live Stream"
-                className="w-full rounded-xl border border-[#deded6] p-2.5 text-[#151515] outline-none focus:border-[#151515]"
+                className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-white outline-none focus:border-[#00ff87]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
                 Source URL
               </label>
               <input
@@ -222,14 +222,14 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
                 value={formData.sourceUrl || ''}
                 onChange={(e) => setFormData({ ...formData, sourceUrl: e.target.value })}
                 placeholder="https://twitter.com/..."
-                className="w-full rounded-xl border border-[#deded6] p-2.5 text-[#151515] outline-none focus:border-[#151515]"
+                className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-white outline-none focus:border-[#00ff87]"
               />
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
                 Usage Limit (Optional)
               </label>
               <input
@@ -242,17 +242,17 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
                   })
                 }
                 placeholder="e.g. 100000"
-                className="w-full rounded-xl border border-[#deded6] p-2.5 text-[#151515] outline-none focus:border-[#151515]"
+                className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-white outline-none focus:border-[#00ff87]"
               />
             </div>
 
             <div className="flex items-center pt-6">
-              <label className="flex items-center gap-2.5 font-bold text-xs text-[#151515] cursor-pointer">
+              <label className="flex items-center gap-2.5 font-bold text-xs text-white cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.featured}
                   onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="h-4 w-4 rounded border-[#deded6] text-[#1d5f52] focus:ring-[#1d5f52]"
+                  className="h-4 w-4 rounded border-[#24334c] bg-[#141d2f] text-[#00ff87] focus:ring-[#00ff87]"
                 />
                 Feature in top banner (Featured Drop)
               </label>
@@ -260,7 +260,7 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
               Internal Notes / Restriction Info
             </label>
             <textarea
@@ -268,17 +268,17 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
               value={formData.notes || ''}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               placeholder="e.g. Global servers, minimum account level 5 required..."
-              className="w-full rounded-xl border border-[#deded6] p-2.5 text-[#151515] outline-none focus:border-[#151515]"
+              className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-white outline-none focus:border-[#00ff87]"
             />
           </div>
 
-          <div className="rounded-xl bg-[#f5f5f0] p-4 border border-[#deded6]">
-            <h4 className="text-xs font-black uppercase tracking-wider text-[#151515] mb-2">
+          <div className="rounded-xl bg-[#121929] p-4 border border-[#1e2a3e]">
+            <h4 className="text-xs font-black uppercase tracking-wider text-[#00ff87] mb-2">
               Verification Record
             </h4>
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
-                <label className="block text-[11px] font-bold text-[#686863] mb-1">
+                <label className="block text-[11px] font-bold text-[#94a3b8] mb-1">
                   Verification Notes
                 </label>
                 <input
@@ -286,24 +286,24 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
                   value={formData.verificationNotes || ''}
                   onChange={(e) => setFormData({ ...formData, verificationNotes: e.target.value })}
                   placeholder="Checked and confirmed working."
-                  className="w-full rounded-lg border border-[#deded6] bg-white p-2 text-xs outline-none"
+                  className="w-full rounded-lg border border-[#24334c] bg-[#141d2f] p-2 text-xs text-white outline-none"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-[#686863] mb-1">
+                <label className="block text-[11px] font-bold text-[#94a3b8] mb-1">
                   Verification Timestamp
                 </label>
                 <input
                   type="text"
                   disabled
                   value={formData.verificationDate || 'Not yet verified'}
-                  className="w-full rounded-lg border border-[#deded6] bg-[#eaeaea] p-2 text-xs text-[#686863]"
+                  className="w-full rounded-lg border border-[#1e2a3e] bg-[#0c121e] p-2 text-xs text-[#64748b]"
                 />
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#deded6]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#1e2a3e]">
             <button
               type="button"
               onClick={onClose}

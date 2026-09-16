@@ -35,47 +35,47 @@ export const VerificationModal: React.FC<VerificationModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-      <div className="card w-full max-w-md bg-white p-6 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-[#deded6] pb-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+      <div className="card w-full max-w-md bg-[#0d1422] border border-[#22314a] p-6 shadow-2xl text-white">
+        <div className="flex items-center justify-between border-b border-[#1e2a3e] pb-4">
           <div className="flex items-center gap-2">
-            <ShieldCheck size={20} className="text-[#1d5f52]" />
-            <h2 className="text-lg font-black text-[#151515]">Verify Code Status</h2>
+            <ShieldCheck size={20} className="text-[#00ff87]" />
+            <h2 className="text-lg font-black text-white">Verify Code Status</h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-1.5 text-[#686863] hover:bg-[#f1f1eb] hover:text-[#151515]"
+            className="rounded-full p-1.5 text-[#94a3b8] hover:bg-[#182338] hover:text-white transition-colors"
           >
             <X size={18} />
           </button>
         </div>
 
-        <div className="mt-4 rounded-xl bg-[#f5f5f0] p-3 text-xs">
-          <span className="font-bold text-[#686863]">Target Code:</span>
-          <div className="mono mt-1 text-xl font-black text-[#151515]">{code.code}</div>
-          <p className="mt-1 text-[#686863]">{code.reward}</p>
+        <div className="mt-4 rounded-xl bg-[#121929] border border-[#1e2a3e] p-3 text-xs">
+          <span className="font-bold text-[#94a3b8]">Target Code:</span>
+          <div className="mono mt-1 text-xl font-black text-white">{code.code}</div>
+          <p className="mt-1 text-[#94a3b8]">{code.reward}</p>
         </div>
 
         <form onSubmit={handleVerify} className="mt-5 space-y-4 text-sm">
           <div>
-            <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
               Confirmed Status
             </label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as CodeStatus)}
-              className="w-full rounded-xl border border-[#deded6] p-2.5 font-bold text-[#151515] outline-none focus:border-[#151515]"
+              className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 font-bold text-white outline-none focus:border-[#00ff87]"
             >
-              <option value="ACTIVE">ACTIVE (Working on live servers)</option>
-              <option value="EXPIRING_SOON">EXPIRING_SOON (Expiring imminent)</option>
-              <option value="EXPIRED">EXPIRED (Failed with expired code)</option>
-              <option value="LIMIT_REACHED">LIMIT_REACHED (Global quota full)</option>
-              <option value="DISABLED">DISABLED (Deactivated)</option>
+              <option value="ACTIVE" className="bg-[#141d2f]">ACTIVE (Working on live servers)</option>
+              <option value="EXPIRING_SOON" className="bg-[#141d2f]">EXPIRING_SOON (Expiring imminent)</option>
+              <option value="EXPIRED" className="bg-[#141d2f]">EXPIRED (Failed with expired code)</option>
+              <option value="LIMIT_REACHED" className="bg-[#141d2f]">LIMIT_REACHED (Global quota full)</option>
+              <option value="DISABLED" className="bg-[#141d2f]">DISABLED (Deactivated)</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase text-[#686863] mb-1">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-1">
               Verification Notes
             </label>
             <textarea
@@ -83,11 +83,11 @@ export const VerificationModal: React.FC<VerificationModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="e.g. Checked on official redemption portal at 10:30 PM."
-              className="w-full rounded-xl border border-[#deded6] p-2.5 text-xs text-[#151515] outline-none focus:border-[#151515]"
+              className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-xs text-white outline-none focus:border-[#00ff87]"
             />
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#deded6]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1e2a3e]">
             <button
               type="button"
               onClick={onClose}
@@ -109,3 +109,4 @@ export const VerificationModal: React.FC<VerificationModalProps> = ({
     </div>
   );
 };
+

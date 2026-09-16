@@ -5,8 +5,6 @@ import { FeaturedCode } from '../components/FeaturedCode';
 import { FilterControls } from '../components/FilterControls';
 import { CodeList } from '../components/CodeList';
 import { HowToRedeem } from '../components/HowToRedeem';
-import { CodeStatusExplanation } from '../components/CodeStatusExplanation';
-import { CommunityReviews } from '../components/CommunityReviews';
 import { FAQ } from '../components/FAQ';
 
 interface HomePageProps {
@@ -92,10 +90,11 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 3. Active Codes Section */}
       <section id="active-codes" className="container-custom pb-16">
         <div className="mb-4">
-          <div className="text-xs font-black tracking-widest text-[#686863] uppercase">
+          <div className="text-xs font-black tracking-widest text-[#00ff87] uppercase flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#00ff87]" />
             LIVE REWARD VAULT
           </div>
-          <h2 className="mt-1 text-2xl sm:text-3xl font-black text-[#151515]">
+          <h2 className="mt-1.5 text-2xl sm:text-3xl font-black text-white tracking-tight">
             {filter.status === 'ALL'
               ? 'All Redeem Codes'
               : filter.status === 'ACTIVE'
@@ -126,14 +125,9 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 4. How to Redeem Guide */}
       <HowToRedeem officialRedeemUrl={officialRedeemUrl} />
 
-      {/* 5. Code Status Explanation */}
-      <CodeStatusExplanation />
-
-      {/* 6. Community Reviews / Testimonials */}
-      <CommunityReviews />
-
-      {/* 8. Frequently Asked Questions */}
+      {/* 5. Frequently Asked Questions */}
       <FAQ />
     </main>
   );
 };
+

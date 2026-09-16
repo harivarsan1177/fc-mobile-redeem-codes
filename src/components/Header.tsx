@@ -20,36 +20,33 @@ export const Header: React.FC<HeaderProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#deded6] bg-[#f5f5f0]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-[#1e2a3e] bg-[#090d16]/90 backdrop-blur-md">
       <div className="container-custom flex min-h-16 items-center justify-between py-3">
         {/* Brand Logo */}
         <button
           onClick={onNavigateHome}
-          className="flex items-center gap-2.5 text-left transition-opacity hover:opacity-85 focus:outline-none"
+          className="flex items-center gap-2.5 text-left transition-opacity hover:opacity-90 focus:outline-none cursor-pointer"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#151515] text-white shadow-sm">
-            <span className="font-black text-sm tracking-tighter">FC</span>
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#00ff87] to-[#00df73] text-[#060a12] shadow-[0_0_15px_rgba(0,255,135,0.3)] font-black text-sm tracking-tighter">
+            FC
           </div>
           <div>
-            <span className="font-black text-lg tracking-tight text-[#151515]">FC CODE LOCKER</span>
-            <span className="hidden sm:inline-block ml-2 rounded bg-[#e7f1ed] px-1.5 py-0.5 text-[10px] font-bold text-[#1d5f52]">
+            <span className="font-black text-lg tracking-tight text-white">FC CODE LOCKER</span>
+            <span className="hidden sm:inline-block ml-2 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/15 px-2 py-0.5 text-[9px] font-black uppercase text-[#00ff87]">
               2026 EDITION
             </span>
           </div>
         </button>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#686863]">
-          <a href="#active-codes" className="transition-colors hover:text-[#151515]">
+        <nav className="hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-wider text-[#94a3b8]">
+          <a href="#active-codes" className="transition-colors hover:text-[#00ff87]">
             Active Codes
           </a>
-          <a href="#how-to-redeem" className="transition-colors hover:text-[#151515]">
+          <a href="#how-to-redeem" className="transition-colors hover:text-[#00ff87]">
             How to Redeem
           </a>
-          <a href="#code-status" className="transition-colors hover:text-[#151515]">
-            Status Guide
-          </a>
-          <a href="#faq" className="transition-colors hover:text-[#151515]">
+          <a href="#faq" className="transition-colors hover:text-[#00ff87]">
             FAQ
           </a>
         </nav>
@@ -60,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={onNavigateAdmin}
-                className={`btn text-xs font-bold ${
+                className={`btn text-xs font-black ${
                   currentView === 'admin-dashboard' ? 'btn-primary' : 'btn-secondary'
                 }`}
               >
@@ -69,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
               <button
                 onClick={onSignOut}
-                className="btn btn-secondary text-xs px-3 text-[#dc2626] hover:bg-[#fee2e2]"
+                className="btn btn-secondary text-xs px-3 text-[#ef4444] hover:bg-[#ef4444]/15 hover:border-[#ef4444]/40"
                 title="Sign out"
               >
                 Sign Out
@@ -78,9 +75,9 @@ export const Header: React.FC<HeaderProps> = ({
           ) : (
             <button
               onClick={onNavigateAdmin}
-              className="btn btn-secondary text-sm shadow-sm hover:border-[#151515]"
+              className="btn btn-secondary text-xs font-black tracking-wider uppercase hover:border-[#00ff87]/60 hover:text-white"
             >
-              <LogIn size={15} />
+              <LogIn size={14} className="text-[#00ff87]" />
               Admin Login
             </button>
           )}
@@ -90,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-lg border border-[#deded6] p-2 text-[#151515] hover:bg-white"
+            className="rounded-xl border border-[#22314a] bg-[#121928] p-2 text-white hover:border-[#00ff87]"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -100,37 +97,30 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-[#deded6] bg-white px-4 py-5 shadow-lg md:hidden">
-          <div className="flex flex-col gap-3 text-sm font-semibold">
+        <div className="border-t border-[#1e2a3e] bg-[#0c121e] px-5 py-5 shadow-2xl md:hidden">
+          <div className="flex flex-col gap-3 text-sm font-bold">
             <a
               href="#active-codes"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1 text-[#151515]"
+              className="py-1 text-white hover:text-[#00ff87]"
             >
               Active Codes
             </a>
             <a
               href="#how-to-redeem"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1 text-[#151515]"
+              className="py-1 text-white hover:text-[#00ff87]"
             >
               How to Redeem
             </a>
             <a
-              href="#code-status"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-1 text-[#151515]"
-            >
-              Status Guide
-            </a>
-            <a
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1 text-[#151515]"
+              className="py-1 text-white hover:text-[#00ff87]"
             >
               FAQ
             </a>
-            <hr className="my-2 border-[#deded6]" />
+            <hr className="my-2 border-[#1e2a3e]" />
             {currentUser ? (
               <div className="flex flex-col gap-2">
                 <button
@@ -138,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({
                     setMobileMenuOpen(false);
                     onNavigateAdmin();
                   }}
-                  className="btn btn-primary w-full text-sm"
+                  className="btn btn-primary w-full text-xs font-black"
                 >
                   <UserCheck size={16} /> Admin Dashboard
                 </button>
@@ -147,7 +137,7 @@ export const Header: React.FC<HeaderProps> = ({
                     setMobileMenuOpen(false);
                     onSignOut();
                   }}
-                  className="btn btn-secondary w-full text-sm text-[#dc2626]"
+                  className="btn btn-secondary w-full text-xs text-[#ef4444]"
                 >
                   Sign Out
                 </button>
@@ -158,9 +148,9 @@ export const Header: React.FC<HeaderProps> = ({
                   setMobileMenuOpen(false);
                   onNavigateAdmin();
                 }}
-                className="btn btn-secondary w-full text-sm"
+                className="btn btn-secondary w-full text-xs font-bold"
               >
-                <LogIn size={16} /> Admin Login
+                <LogIn size={15} className="text-[#00ff87]" /> Admin Login
               </button>
             )}
           </div>
@@ -169,3 +159,4 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+

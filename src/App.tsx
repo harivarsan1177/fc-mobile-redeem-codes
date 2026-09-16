@@ -124,7 +124,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f5f5f0] text-[#151515]">
+    <div className="min-h-screen flex flex-col bg-[#090d16] text-[#f1f5f9] selection:bg-[#00ff87] selection:text-[#060a12]">
       {/* Header */}
       <Header
         currentUser={currentUser}

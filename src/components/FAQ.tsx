@@ -32,15 +32,15 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="container-custom py-12 md:py-16">
+    <section id="faq" className="container-custom py-12 md:py-16 border-t border-[#1e2a3e]">
       <div className="max-w-2xl">
-        <div className="pill bg-white text-[#151515] mb-3">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/10 px-3.5 py-1 text-xs font-black uppercase tracking-wider text-[#00ff87]">
           <span>FREQUENTLY ASKED QUESTIONS</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-[#151515]">
+        <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
           Got questions? We have answers.
         </h2>
-        <p className="mt-3 text-base text-[#686863]">
+        <p className="mt-3 text-base text-[#94a3b8]">
           Everything you need to know about FC Mobile redeem codes, verification, and redemption rules.
         </p>
       </div>
@@ -51,24 +51,24 @@ export const FAQ: React.FC = () => {
           return (
             <div
               key={idx}
-              className="card bg-white transition-all overflow-hidden border border-[#deded6]"
+              className="card bg-[#121928] transition-all overflow-hidden border border-[#22314a] hover:border-[#00ff87]/40"
             >
               <button
                 onClick={() => toggle(idx)}
-                className="flex w-full items-center justify-between p-5 text-left font-bold text-[#151515] hover:bg-[#fbfbf9] focus:outline-none"
+                className="flex w-full items-center justify-between p-5 text-left font-black text-white hover:bg-[#162136] focus:outline-none transition-colors"
                 aria-expanded={isOpen}
               >
                 <span className="text-sm sm:text-base pr-4">{faq.q}</span>
                 <ChevronDown
                   size={18}
-                  className={`shrink-0 text-[#686863] transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 text-[#151515]' : ''
+                  className={`shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'rotate-180 text-[#00ff87]' : 'text-[#94a3b8]'
                   }`}
                 />
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#686863] leading-relaxed border-t border-[#deded6]/40">
+                <div className="px-5 pb-5 pt-2 text-xs sm:text-sm text-[#94a3b8] leading-relaxed border-t border-[#1e2a3e]">
                   {faq.a}
                 </div>
               )}
@@ -79,3 +79,4 @@ export const FAQ: React.FC = () => {
     </section>
   );
 };
+

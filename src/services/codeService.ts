@@ -23,12 +23,18 @@ function getLocalCodes(): CodeItem[] {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!raw) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(INITIAL_DEV_SEED_CODES));
-      return INITIAL_DEV_SEED_CODES;
+      return [];
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    // Scrub any legacy dummy seed codes
+    const cleaned = parsed.filter((c: CodeItem) => !c.id?.startsWith('seed-code-'));
+    if (cleaned.length !== parsed.length) {
+      saveLocalCodes(cleaned);
+    }
+    return cleaned;
   } catch {
-    return INITIAL_DEV_SEED_CODES;
+    return [];
   }
 }
 
@@ -72,8 +78,8 @@ export function subscribeToPublicCodes(
       q,
       (snapshot) => {
         if (snapshot.empty) {
-          // If Firestore is empty, we can provide seed data
-          onUpdate(INITIAL_DEV_SEED_CODES.filter((c) => !c.deleted));
+          // If Firestore is empty, return empty list without injecting dummy data
+          onUpdate([]);
           return;
         }
         const codes: CodeItem[] = snapshot.docs.map((docSnap) => {
@@ -120,7 +126,7 @@ export function subscribeToAdminCodes(
       q,
       (snapshot) => {
         if (snapshot.empty) {
-          onUpdate(INITIAL_DEV_SEED_CODES);
+          onUpdate([]);
           return;
         }
         const codes: CodeItem[] = snapshot.docs.map((docSnap) => ({
