@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-import { LogIn, UserCheck, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import type { User } from 'firebase/auth';
 
 interface HeaderProps {
-  currentUser: User | null;
-  onNavigateAdmin: () => void;
+  currentUser?: User | null;
+  onNavigateAdmin?: () => void;
   onNavigateHome: () => void;
-  onSignOut: () => void;
-  currentView: 'home' | 'admin-login' | 'admin-dashboard' | 'how-to-redeem';
+  onSignOut?: () => void;
+  currentView?: 'home' | 'admin-login' | 'admin-dashboard' | 'how-to-redeem';
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  currentUser,
-  onNavigateAdmin,
   onNavigateHome,
-  onSignOut,
-  currentView,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -32,9 +28,6 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <span className="font-black text-lg tracking-tight text-white">FC CODE LOCKER</span>
-            <span className="hidden sm:inline-block ml-2 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/15 px-2 py-0.5 text-[9px] font-black uppercase text-[#00ff87]">
-              2026 EDITION
-            </span>
           </div>
         </button>
 
@@ -50,38 +43,6 @@ export const Header: React.FC<HeaderProps> = ({
             FAQ
           </a>
         </nav>
-
-        {/* Admin Action Button */}
-        <div className="hidden sm:flex items-center gap-3">
-          {currentUser ? (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={onNavigateAdmin}
-                className={`btn text-xs font-black ${
-                  currentView === 'admin-dashboard' ? 'btn-primary' : 'btn-secondary'
-                }`}
-              >
-                <UserCheck size={15} />
-                Admin Dashboard
-              </button>
-              <button
-                onClick={onSignOut}
-                className="btn btn-secondary text-xs px-3 text-[#ef4444] hover:bg-[#ef4444]/15 hover:border-[#ef4444]/40"
-                title="Sign out"
-              >
-                Sign Out
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={onNavigateAdmin}
-              className="btn btn-secondary text-xs font-black tracking-wider uppercase hover:border-[#00ff87]/60 hover:text-white"
-            >
-              <LogIn size={14} className="text-[#00ff87]" />
-              Admin Login
-            </button>
-          )}
-        </div>
 
         {/* Mobile Menu Toggle Button */}
         <div className="flex items-center gap-2 md:hidden">
@@ -120,39 +81,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               FAQ
             </a>
-            <hr className="my-2 border-[#1e2a3e]" />
-            {currentUser ? (
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onNavigateAdmin();
-                  }}
-                  className="btn btn-primary w-full text-xs font-black"
-                >
-                  <UserCheck size={16} /> Admin Dashboard
-                </button>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onSignOut();
-                  }}
-                  className="btn btn-secondary w-full text-xs text-[#ef4444]"
-                >
-                  Sign Out
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigateAdmin();
-                }}
-                className="btn btn-secondary w-full text-xs font-bold"
-              >
-                <LogIn size={15} className="text-[#00ff87]" /> Admin Login
-              </button>
-            )}
           </div>
         </div>
       )}

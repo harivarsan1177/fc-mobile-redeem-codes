@@ -46,19 +46,35 @@ export const App: React.FC = () => {
     return () => unsubAuth();
   }, []);
 
-  // Listen to hash changes in URL for navigation
+  // Listen to pathname & hash changes in URL for direct /admin access
   useEffect(() => {
-    const handleHash = () => {
+    const handleRoute = () => {
+      const pathname = window.location.pathname.replace(/\/+$/, '');
       const hash = window.location.hash;
-      if (hash === '#admin') {
+
+      const isAdminPath = pathname === '/admin' || pathname.endsWith('/admin');
+      const isAdminHash = hash === '#admin';
+      const isLoginPath = pathname === '/login' || pathname.endsWith('/login');
+      const isLoginHash = hash === '#login';
+
+      if (isAdminPath || isAdminHash) {
         setCurrentView(currentUser ? 'admin-dashboard' : 'admin-login');
-      } else if (hash === '#login') {
+      } else if (isLoginPath || isLoginHash) {
         setCurrentView('admin-login');
+      } else if (hash === '#how-to-redeem') {
+        setCurrentView('how-to-redeem');
+      } else if (!hash && (pathname === '' || pathname === '/')) {
+        setCurrentView('home');
       }
     };
-    window.addEventListener('hashchange', handleHash);
-    handleHash();
-    return () => window.removeEventListener('hashchange', handleHash);
+
+    window.addEventListener('hashchange', handleRoute);
+    window.addEventListener('popstate', handleRoute);
+    handleRoute();
+    return () => {
+      window.removeEventListener('hashchange', handleRoute);
+      window.removeEventListener('popstate', handleRoute);
+    };
   }, [currentUser]);
 
   // Subscribe to codes based on current view (Admin vs Public)
@@ -97,21 +113,31 @@ export const App: React.FC = () => {
     await signOutAdmin();
     setCurrentUser(null);
     setCurrentView('home');
+    if (window.location.pathname.endsWith('/admin') || window.location.pathname.endsWith('/login')) {
+      window.history.pushState({}, '', '/');
+    }
     window.location.hash = '';
   };
 
   const handleNavigateAdmin = () => {
     if (currentUser) {
       setCurrentView('admin-dashboard');
-      window.location.hash = '#admin';
+      if (!window.location.pathname.endsWith('/admin')) {
+        window.location.hash = '#admin';
+      }
     } else {
       setCurrentView('admin-login');
-      window.location.hash = '#login';
+      if (!window.location.pathname.endsWith('/admin')) {
+        window.location.hash = '#admin';
+      }
     }
   };
 
   const handleNavigateHome = () => {
     setCurrentView('home');
+    if (window.location.pathname.endsWith('/admin') || window.location.pathname.endsWith('/login')) {
+      window.history.pushState({}, '', '/');
+    }
     window.location.hash = '';
   };
 
@@ -139,7 +165,9 @@ export const App: React.FC = () => {
         <AdminLoginPage
           onSuccess={() => {
             setCurrentView('admin-dashboard');
-            window.location.hash = '#admin';
+            if (window.location.hash === '#login') {
+              window.location.hash = '#admin';
+            }
           }}
           onBack={handleNavigateHome}
         />

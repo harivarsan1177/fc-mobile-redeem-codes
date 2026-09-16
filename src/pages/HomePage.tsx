@@ -68,15 +68,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       });
   }, [codes, filter]);
 
-  const activeCount = codes.filter((c) => c.status === 'ACTIVE').length;
-
   return (
     <main className="flex-1">
       {/* 1. Hero Section */}
       <Hero
         searchQuery={filter.search}
         onSearchChange={(q) => onFilterChange({ search: q })}
-        activeCount={activeCount}
       />
 
       {/* 2. Featured Code Banner */}

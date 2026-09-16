@@ -4,17 +4,13 @@ import { ShieldCheck, Search, X } from 'lucide-react';
 interface HeroProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  activeCount: number;
+  activeCount?: number;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   searchQuery,
   onSearchChange,
-  activeCount,
 }) => {
-  // Respect the user's requirement to preserve "2 verified codes active right now" (or actual active count when active)
-  const displayActiveCount = activeCount > 0 ? activeCount : 2;
-
   return (
     <section className="container-custom pt-10 pb-8 md:pt-16 md:pb-12">
       <div className="max-w-3xl">
@@ -37,15 +33,6 @@ export const Hero: React.FC<HeroProps> = ({
         <p className="mt-5 text-base sm:text-lg text-[#94a3b8] leading-relaxed max-w-2xl font-medium">
           The fast, clean place to discover active FC Mobile redeem codes, check real-time verification timestamps, and jump directly to EA&apos;s official redemption page.
         </p>
-
-        {/* Live Active Counter Callout (Preserved with neon blinking green indicator) */}
-        <div className="mt-5 inline-flex items-center gap-2.5 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/10 px-3.5 py-1.5 text-xs font-black text-[#00ff87] shadow-sm">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff87] opacity-80"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00ff87]"></span>
-          </span>
-          <span>{displayActiveCount} verified codes active right now</span>
-        </div>
       </div>
 
       {/* Integrated Search Bar */}
