@@ -17,7 +17,6 @@ export interface CodeItem {
   sourceUrl?: string;
   notes?: string;
   usageLimit?: number | null;
-  featured: boolean;
   verificationDate?: string | null;
   verificationNotes?: string | null;
   deleted: boolean;
@@ -39,5 +38,4 @@ export interface AdminStats {
   expiringSoon: number;
   expired: number;
   pendingVerification: number;
-  featured: number;
 }

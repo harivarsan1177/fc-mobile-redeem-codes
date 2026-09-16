@@ -220,13 +220,6 @@ export async function verifyCode(
 }
 
 /**
- * Toggle featured status (Admin only).
- */
-export async function toggleFeaturedCode(id: string, featured: boolean): Promise<void> {
-  await updateCode(id, { featured });
-}
-
-/**
  * Soft delete a code (Sets deleted = true).
  */
 export async function softDeleteCode(id: string): Promise<void> {
@@ -276,6 +269,5 @@ export function calculateAdminStats(codes: CodeItem[]): AdminStats {
     expiringSoon: activeList.filter((c) => c.status === 'EXPIRING_SOON').length,
     expired: activeList.filter((c) => c.status === 'EXPIRED').length,
     pendingVerification: activeList.filter((c) => c.status === 'PENDING_VERIFICATION').length,
-    featured: activeList.filter((c) => c.featured).length,
   };
 }

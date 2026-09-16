@@ -3,7 +3,6 @@ import {
   Plus,
   Search,
   Filter,
-  Star,
   CheckCircle,
   Edit2,
   Trash2,
@@ -15,7 +14,6 @@ import {
   createCode,
   updateCode,
   verifyCode,
-  toggleFeaturedCode,
   softDeleteCode,
   restoreCode,
   calculateAdminStats,
@@ -112,11 +110,6 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
   const handleVerifySubmit = async (id: string, status: CodeStatus, notes: string) => {
     await verifyCode(id, status, notes);
     showNotification('Verification record updated successfully!');
-  };
-
-  const handleToggleFeatured = async (item: CodeItem) => {
-    await toggleFeaturedCode(item.id, !item.featured);
-    showNotification(`Code ${item.code} featured status toggled.`);
   };
 
   const handleSoftDelete = async (item: CodeItem) => {
@@ -241,14 +234,13 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                 <th className="px-5 py-3.5">Status</th>
                 <th className="px-5 py-3.5">Verification</th>
                 <th className="px-5 py-3.5">Expiration</th>
-                <th className="px-5 py-3.5">Featured</th>
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1e2a3e]">
               {displayCodes.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-sm text-[#94a3b8]">
+                  <td colSpan={6} className="px-5 py-12 text-center text-sm text-[#94a3b8]">
                     No codes match the selected criteria. Click &quot;Add Code&quot; to insert real redeem codes.
                   </td>
                 </tr>
@@ -310,22 +302,6 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                       {item.expirationDate
                         ? formatDisplayDate(item.expirationDate)
                         : 'No Expiration'}
-                    </td>
-
-                    {/* Featured Toggle */}
-                    <td className="px-5 py-4">
-                      <button
-                        onClick={() => handleToggleFeatured(item)}
-                        disabled={item.deleted}
-                        className={`rounded-lg p-1.5 transition-colors ${
-                          item.featured
-                            ? 'bg-[#fbbf24]/20 text-[#fbbf24]'
-                            : 'text-[#475569] hover:text-[#94a3b8]'
-                        }`}
-                        title={item.featured ? 'Unfeature code' : 'Feature code'}
-                      >
-                        <Star size={17} fill={item.featured ? 'currentColor' : 'none'} />
-                      </button>
                     </td>
 
                     {/* Action Triggers */}

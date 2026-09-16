@@ -27,7 +27,6 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
     sourceUrl: '',
     notes: '',
     usageLimit: null,
-    featured: false,
     verificationDate: new Date().toISOString(),
     verificationNotes: 'Verified working on global servers.',
     deleted: false,
@@ -48,7 +47,6 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
         sourceUrl: initialData.sourceUrl || '',
         notes: initialData.notes || '',
         usageLimit: initialData.usageLimit ?? null,
-        featured: initialData.featured ?? false,
         verificationDate: initialData.verificationDate || '',
         verificationNotes: initialData.verificationNotes || '',
         deleted: initialData.deleted ?? false,
@@ -64,7 +62,6 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
         sourceUrl: '',
         notes: '',
         usageLimit: null,
-        featured: false,
         verificationDate: new Date().toISOString(),
         verificationNotes: 'Verified working on global servers.',
         deleted: false,
@@ -244,18 +241,6 @@ export const CodeFormModal: React.FC<CodeFormModalProps> = ({
                 placeholder="e.g. 100000"
                 className="w-full rounded-xl border border-[#24334c] bg-[#141d2f] p-2.5 text-white outline-none focus:border-[#00ff87]"
               />
-            </div>
-
-            <div className="flex items-center pt-6">
-              <label className="flex items-center gap-2.5 font-bold text-xs text-white cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.featured}
-                  onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="h-4 w-4 rounded border-[#24334c] bg-[#141d2f] text-[#00ff87] focus:ring-[#00ff87]"
-                />
-                Feature in top banner (Featured Drop)
-              </label>
             </div>
           </div>
 

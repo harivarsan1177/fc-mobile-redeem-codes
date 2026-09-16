@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Clock, AlertTriangle, Sparkles, Star, Layers } from 'lucide-react';
+import { ShieldCheck, Clock, AlertTriangle, Sparkles, Layers } from 'lucide-react';
 import type { AdminStats as AdminStatsType } from '../../types/code';
 
 interface AdminStatsProps {
@@ -38,16 +38,10 @@ export const AdminStats: React.FC<AdminStatsProps> = ({ stats }) => {
       icon: <Sparkles size={18} className="text-[#38bdf8]" />,
       bg: 'bg-[#38bdf8]/10 border-[#38bdf8]/30',
     },
-    {
-      title: 'Featured Drops',
-      value: stats.featured,
-      icon: <Star size={18} className="text-[#fbbf24] fill-[#fbbf24]" />,
-      bg: 'bg-[#121928] border-[#22314a]',
-    },
   ];
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 mb-8">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-8">
       {cards.map((c) => (
         <div key={c.title} className={`card p-4.5 ${c.bg}`}>
           <div className="flex items-center justify-between text-[#94a3b8]">

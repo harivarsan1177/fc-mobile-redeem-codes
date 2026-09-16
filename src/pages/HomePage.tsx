@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import type { CodeItem, CodeFilterState } from '../types/code';
 import { Hero } from '../components/Hero';
-import { FeaturedCode } from '../components/FeaturedCode';
 import { FilterControls } from '../components/FilterControls';
 import { CodeList } from '../components/CodeList';
 import { HowToRedeem } from '../components/HowToRedeem';
@@ -26,11 +25,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   onResetFilters,
   officialRedeemUrl,
 }) => {
-  // Top Featured Code
-  const featuredCode = useMemo(() => {
-    return codes.find((c) => c.featured && c.status === 'ACTIVE') || codes.find((c) => c.status === 'ACTIVE');
-  }, [codes]);
-
   // Filtered and sorted codes
   const filteredCodes = useMemo(() => {
     return codes
@@ -76,15 +70,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         onSearchChange={(q) => onFilterChange({ search: q })}
       />
 
-      {/* 2. Featured Code Banner */}
-      {featuredCode && (
-        <FeaturedCode
-          code={featuredCode}
-          officialRedeemUrl={officialRedeemUrl}
-        />
-      )}
-
-      {/* 3. Active Codes Section */}
+      {/* 2. Active Codes Section */}
       <section id="active-codes" className="container-custom pb-16">
         <div className="mb-4">
           <div className="text-xs font-black tracking-widest text-[#00ff87] uppercase flex items-center gap-2">
